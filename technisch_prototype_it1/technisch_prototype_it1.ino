@@ -164,7 +164,7 @@ void selecteerTijd(){
         lcd.print("Timer:");
         lcd.setCursor(6,0);
         lcd.print(i);
-        delay(100);
+        delay(10000);
         lcd.setCursor(0,0);
       }
 
