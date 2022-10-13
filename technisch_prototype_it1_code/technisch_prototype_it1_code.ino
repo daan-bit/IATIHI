@@ -1,6 +1,9 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+//SCL A5
+//SDA A4
+
 const int onOffButton = 2;
 const int okButton = 3;
 const int startButton = 4;
@@ -43,23 +46,23 @@ void loop() {
 void selecteerModus(){
   while(true){
     int modusValue = analogRead(modusSelecter);
-    if(modusValue <= 1023 && modusValue > 1000){
+    if(modusValue <= 20 && modusValue > 0){
       lcd.clear();
       lcd.print("selecteer een");
       lcd.setCursor(0,1);
       lcd.print("modus en klik OK");
       lcd.setCursor(0,0);
     }
-    else if(modusValue <= 1000 && modusValue > 750){ 
+    else if(modusValue <= 250 && modusValue > 20){ 
       lcd.clear();
       lcd.print("Onderverwarming");
-    }else if(modusValue <= 750  && modusValue > 500){
+    }else if(modusValue <= 500  && modusValue > 250){
       lcd.clear();
       lcd.print("Bovenverwarming");
-    }else if(modusValue <= 500 && modusValue > 250){
+    }else if(modusValue <= 750 && modusValue > 500){
       lcd.clear();
-      lcd.print("B + O verwaring");
-    }else if(modusValue <= 250 && modusValue > 0){
+      lcd.print("B + O verwarming");
+    }else if(modusValue <= 1023 && modusValue > 750){
       lcd.clear();
       lcd.print("Hetelucht");
     }
@@ -80,7 +83,7 @@ void selecteerGraden(){
       while(true){
         int multiValue = analogRead(multiSelecter);
         lcd.clear();
-        ingesteldeGraden = map(multiValue, 0, 1023, 0, 250);
+        ingesteldeGraden = map(multiValue, 0, 1023, 250, 0);
         lcd.print(ingesteldeGraden);
         lcd.setCursor(4,0);
         lcd.print("graden");
@@ -141,11 +144,11 @@ void selecteerTijd(){
       lcd.print("op 0");
       while(true){
         int multiValue = analogRead(multiSelecter);
-        if(multiValue <= 5){
+        if(multiValue >= 1015){
           while(true){
             lcd.clear();
             int multiValue = analogRead(multiSelecter);
-            ingesteldeTijd = map(multiValue, 0, 1023, 0, 20);
+            ingesteldeTijd = map(multiValue, 0, 1015, 20, 0);
             lcd.print(ingesteldeTijd);
             lcd.setCursor(3,0);
             lcd.print("min");        
@@ -164,7 +167,7 @@ void selecteerTijd(){
         lcd.print("Timer:");
         lcd.setCursor(6,0);
         lcd.print(i);
-        delay(10000);
+        delay(1000);
         lcd.setCursor(0,0);
       }
 
